@@ -1,0 +1,293 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Torneo de tenis",
+        "description": "Test Desarrollador backend",
+        "version": "1.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/"
+        }
+    ],
+    "paths": {
+        "/api/torneos/crear": {
+            "post": {
+                "tags": [
+                    "Torneo"
+                ],
+                "summary": "Crear un nuevo torneo",
+                "description": "Crea un torneo de eliminación directa con los jugadores proporcionados",
+                "operationId": "31936eae38f85df83691f53449c1f223",
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "jugadores": {
+                                        "type": "array",
+                                        "items": {
+                                            "properties": {
+                                                "nombre": {
+                                                    "type": "string",
+                                                    "example": "maria"
+                                                },
+                                                "nivel_habilidad": {
+                                                    "type": "integer",
+                                                    "example": 90
+                                                },
+                                                "tiempo_reaccion": {
+                                                    "type": "integer",
+                                                    "example": 20
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    }
+                                },
+                                "type": "object"
+                            },
+                            "example": {
+                                "jugadores": [
+                                    {
+                                        "nombre": "Maria",
+                                        "nivel_habilidad": 90,
+                                        "tiempo_reaccion": 20
+                                    },
+                                    {
+                                        "nombre": "Laura",
+                                        "nivel_habilidad": 90,
+                                        "tiempo_reaccion": 25
+                                    },
+                                    {
+                                        "nombre": "Adriana",
+                                        "nivel_habilidad": 90,
+                                        "tiempo_reaccion": 20
+                                    },
+                                    {
+                                        "nombre": "Ana",
+                                        "nivel_habilidad": 60,
+                                        "tiempo_reaccion": 22
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Torneo creado con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Torneo creado con éxito"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error en los datos enviados",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "Datos inválidos"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/torneos": {
+            "get": {
+                "tags": [
+                    "Torneo"
+                ],
+                "summary": "Obtener todos los torneos",
+                "description": "Devuelve una lista de todos los torneos creados",
+                "operationId": "a265eaff81fe4bafaf8132d2ab1377c7",
+                "responses": {
+                    "200": {
+                        "description": "Lista de torneos obtenida con éxito",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "integer",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Torneo de Verano"
+                                            },
+                                            "ganador": {
+                                                "type": "string",
+                                                "example": "Pedro"
+                                            },
+                                            "fecha": {
+                                                "type": "string",
+                                                "example": "2024-08-29"
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2024-08-28T00:00:00Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2024-08-29T00:00:00Z"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "No se encontraron torneos",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "error": {
+                                            "type": "string",
+                                            "example": "No hay torneos disponibles"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/torneosPorFecha": {
+            "get": {
+                "tags": [
+                    "Torneo"
+                ],
+                "summary": "Consultar torneos finalizados por fecha",
+                "description": "Devuelve una lista de torneos finalizados en la fecha especificada.",
+                "operationId": "30187311d7c1c52f9d46b8c838cb052c",
+                "parameters": [
+                    {
+                        "name": "fecha",
+                        "in": "query",
+                        "description": "La fecha en la que se crearon los torneos que se desean consultar.",
+                        "required": true,
+                        "schema": {
+                            "type": "string",
+                            "format": "date",
+                            "example": "2024-08-28"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "properties": {
+                                            "id": {
+                                                "type": "number",
+                                                "example": 1
+                                            },
+                                            "nombre": {
+                                                "type": "string",
+                                                "example": "Torneo 2024-08-28 10:00:00"
+                                            },
+                                            "ganador_id": {
+                                                "type": "number",
+                                                "example": 493
+                                            },
+                                            "created_at": {
+                                                "type": "string",
+                                                "example": "2024-08-28T10:00:00.000000Z"
+                                            },
+                                            "updated_at": {
+                                                "type": "string",
+                                                "example": "2024-08-28T10:30:00.000000Z"
+                                            },
+                                            "ganador": {
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "number",
+                                                        "example": 493
+                                                    },
+                                                    "nombre": {
+                                                        "type": "string",
+                                                        "example": "maria"
+                                                    },
+                                                    "nivel_habilidad": {
+                                                        "type": "integer",
+                                                        "example": 90
+                                                    },
+                                                    "tiempo_reaccion": {
+                                                        "type": "integer",
+                                                        "example": 20
+                                                    },
+                                                    "created_at": {
+                                                        "type": "string",
+                                                        "example": "2024-08-28T10:00:00.000000Z"
+                                                    },
+                                                    "updated_at": {
+                                                        "type": "string",
+                                                        "example": "2024-08-28T10:30:00.000000Z"
+                                                    }
+                                                },
+                                                "type": "object"
+                                            }
+                                        },
+                                        "type": "object"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "NOT FOUND",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "No se encontraron torneos finalizados en la fecha especificada."
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Torneo",
+            "description": "Torneo"
+        }
+    ]
+}
