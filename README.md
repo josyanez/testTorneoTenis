@@ -1,6 +1,6 @@
 # testTorneoTenis
 Cómo clonar el proyecto en un servidor Local
-git clone https://github.com/adersonjara/apiParaPrincipiantesLaravelVersion10.git
+git clone https://github.com/josyanez/testTorneoTenis.git
 cd apiparaprincipianteslaravelversion10
 Instalar las dependencias del proyecto con: composer install
 Configurar el archivo .env.example y dejarlo como .env y dentro colocar todas las variables de entorno de nuestro proyecto.
